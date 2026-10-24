@@ -1,16 +1,9 @@
-
 const Property = require("../models/Property");
 
 const getProperties = async (req, res) => {
   try {
-    const {
-      search,
-      listingType,
-      propertyType,
-      minPrice,
-      maxPrice,
-      bedrooms,
-    } = req.query;
+    const { search, listingType, propertyType, minPrice, maxPrice, bedrooms } =
+      req.query;
 
     const filter = {};
 
@@ -51,17 +44,20 @@ const getProperties = async (req, res) => {
       properties,
     });
   } catch (error) {
+    console.error("Fetch properties error:", error.message);
     res.status(500).json({
       success: false,
-      message: "Failed to fetch properties",
+      message: error.message,
     });
   }
 };
 
 const getPropertyById = async (req, res) => {
   try {
-    const property = await Property.findById(req.params.id)
-      .populate("owner", "name email");
+    const property = await Property.findById(req.params.id).populate(
+      "owner",
+      "name email",
+    );
 
     if (!property) {
       return res.status(404).json({
@@ -75,9 +71,10 @@ const getPropertyById = async (req, res) => {
       property,
     });
   } catch (error) {
-    res.status(400).json({
+    console.error("Fetch properties error:", error);
+    res.status(500).json({
       success: false,
-      message: "Invalid property ID",
+      message: "Failed to fetch properties",
     });
   }
 };

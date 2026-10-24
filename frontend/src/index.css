@@ -13,3 +13,27 @@ body {
   font-family: Arial, sans-serif;
   background: #f8f9fb;
 }
+
+
+.Toastify__toast {
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.Toastify__toast--success {
+  border-left: 4px solid #047857;
+}
+
+.Toastify__toast--error {
+  border-left: 4px solid #dc2626;
+}
+
+.Toastify__toast--info {
+  border-left: 4px solid #d97706;
+}
+
+.Toastify__progress-bar--success {
+  background: #047857;
+}
