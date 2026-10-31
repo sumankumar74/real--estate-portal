@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import API_URL from "../src/service/api";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState([]);
@@ -11,7 +12,7 @@ export default function AdminUsers() {
       localStorage.getItem("estatehubToken") ||
       sessionStorage.getItem("estatehubToken");
 
-    fetch("http://localhost:5000/api/auth/users", {
+    fetch(`${API_URL}/api/auth/users`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(async (response) => {

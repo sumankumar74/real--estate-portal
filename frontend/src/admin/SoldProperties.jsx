@@ -2,8 +2,9 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { RefreshCw, BadgeCheck, MapPin, RotateCcw } from "lucide-react";
+import API_URL from "../src/service/api";
 
-const API_URL = "http://localhost:5000/api/properties";
+const API_URL = `${API_URL}/api/properties`;
 
 export default function SoldProperties() {
   const [properties, setProperties] = useState([]);

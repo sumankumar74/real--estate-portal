@@ -1,5 +1,5 @@
-
-const API_URL = "http://localhost:5000/api/properties";
+import API_URL from "../src/service/api";
+const API_URL = `${API_URL}/api/properties`;
 
 export function normalizeProperty(property) {
   return {

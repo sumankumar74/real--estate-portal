@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -9,8 +8,8 @@ import {
   Users,
   RefreshCw,
 } from "lucide-react";
-
-const API_URL = "http://localhost:5000/api";
+import API_URL from "../src/service/api";
+const API_URL = `${API_URL}/api/`;
 
 export default function AdminDashboard() {
   const [properties, setProperties] = useState([]);
