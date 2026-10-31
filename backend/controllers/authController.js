@@ -37,7 +37,7 @@ exports.register = async (req, res) => {
       password: hashedPassword,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       message: "Registration successful",
       user: {
         id: user._id,
@@ -53,7 +53,9 @@ exports.register = async (req, res) => {
       });
     }
 
-    res.status(500).json({ message: "Registration failed" });
+    return res.status(500).json({
+      message: "Registration failed",
+    });
   }
 };
 
@@ -89,7 +91,7 @@ exports.login = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    res.json({
+    return res.status(200).json({
       message: "Login successful",
       token,
       user: {
@@ -100,6 +102,27 @@ exports.login = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: "Login failed" });
+    return res.status(500).json({
+      message: "Login failed",
+    });
+  }
+};
+
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find()
+      .select("name email role createdAt")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      count: users.length,
+      users,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch users.",
+    });
   }
 };

@@ -1,12 +1,50 @@
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+  useLocation,
+} from "react-router-dom";
+
 import Navbar from "../components/Navbar";
 import Home from "../pages/Home";
 import PropertyDetails from "../pages/PropertyDetails";
 import ToastProvider from "../components/ToastProvider";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import Dashboard from "../pages/Dashboard";
 
+import AdminLayout from "./admin/AdminLayout";
+import AdminDashboard from "./admin/AdminDashboard";
+import AddProperty from "./admin/AddProperty";
+import AdminProperties from "./admin/AdminProperties";
+import AdminUsers from "./admin/AdminUsers";
+
+
+function AdminRoute() {
+  const token =
+    localStorage.getItem("estatehubToken") ||
+    sessionStorage.getItem("estatehubToken");
+
+  const userData =
+    localStorage.getItem("estatehubUser") ||
+    sessionStorage.getItem("estatehubUser");
+
+  let user = null;
+
+  try {
+    user = userData ? JSON.parse(userData) : null;
+  } catch {
+    user = null;
+  }
+
+  if (!token) return <Navigate to="/login" replace />;
+  if (user?.role !== "admin") return <Navigate to="/" replace />;
+
+  return <Outlet />;
+}
 
 function NotFound() {
   return (
@@ -28,20 +66,42 @@ function NotFound() {
   );
 }
 
-export default function App() {
+function AppContent() {
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith("/admin");
+
   return (
-    <BrowserRouter>
-    <ToastProvider/>
-      <Navbar />
+    <>
+      <ToastProvider />
+      {!isAdminPage && <Navbar />}
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/properties" element={<Home />} />
         <Route path="/properties/:id" element={<PropertyDetails />} />
+
+        <Route element={<AdminRoute />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="add-property" element={<AddProperty />} />
+            <Route path="properties" element={<AdminProperties />} />
+            <Route path="users" element={<AdminUsers />} />
+          </Route>
+        </Route>
+
         <Route path="*" element={<NotFound />} />
       </Routes>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }
