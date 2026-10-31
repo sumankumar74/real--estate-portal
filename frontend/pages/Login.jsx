@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -47,7 +46,11 @@ export default function Login() {
       storage.setItem("estatehubUser", JSON.stringify(data.user));
 
       toast.success(`Welcome back, ${data.user.name}!`);
-      navigate("/");
+      if (data.user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       toast.error(error.message || "Unable to connect to the server");
     } finally {
@@ -63,15 +66,19 @@ export default function Login() {
             <span className="login-logo-icon">⌂</span>
             Estate<span>Hub</span>
           </Link>
-          <Link to="/" className="login-home-link">← Back to Home</Link>
+          <Link to="/" className="login-home-link">
+            ← Back to Home
+          </Link>
         </nav>
 
         <div className="login-showcase-content">
           <span className="login-badge">FIND YOUR PLACE IN THE WORLD</span>
-          <h1>Every great story starts with a <span>home.</span></h1>
+          <h1>
+            Every great story starts with a <span>home.</span>
+          </h1>
           <p>
-            Discover exceptional properties and take the next step
-            towards the life you've always imagined.
+            Discover exceptional properties and take the next step towards the
+            life you've always imagined.
           </p>
 
           <div className="login-benefits">
@@ -174,19 +181,25 @@ export default function Login() {
               <button
                 type="button"
                 className="login-forgot"
-                onClick={() => toast.info("Please contact support to reset your password.")}
+                onClick={() =>
+                  toast.info("Please contact support to reset your password.")
+                }
               >
                 Forgot password?
               </button>
             </div>
 
             <button className="login-submit" type="submit" disabled={loading}>
-              <span>{loading ? "Signing you in..." : "Sign In to EstateHub"}</span>
+              <span>
+                {loading ? "Signing you in..." : "Sign In to EstateHub"}
+              </span>
               {!loading && <span className="login-arrow">→</span>}
             </button>
           </form>
 
-          <div className="login-divider"><span>YOUR NEXT CHAPTER AWAITS</span></div>
+          <div className="login-divider">
+            <span>YOUR NEXT CHAPTER AWAITS</span>
+          </div>
 
           <div className="login-trust">
             <span>✓</span>

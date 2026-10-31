@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { BadgeCheck, Users,LayoutDashboard,HousePlus,Building2, } from "lucide-react";
+import { BadgeCheck, Users,LayoutDashboard,HousePlus,Building2,MessageSquare  } from "lucide-react";
 
 export default function AdminLayout() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,6 +36,11 @@ export default function AdminLayout() {
     path: "/admin/users",
     icon: <Users size={20} />,
   },
+  {
+  name: "Enquiries",
+  path: "/admin/enquiries",
+  icon: <MessageSquare size={20} />,
+}
 ];
 
   const handleLogout = () => {

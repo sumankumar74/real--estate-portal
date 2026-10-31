@@ -21,6 +21,8 @@ import AdminDashboard from "./admin/AdminDashboard";
 import AddProperty from "./admin/AddProperty";
 import AdminProperties from "./admin/AdminProperties";
 import AdminUsers from "./admin/AdminUsers";
+import SoldProperties from "./admin/SoldProperties";
+import AdminEnquiries from "./admin/AdminEnquiries";
 
 
 function AdminRoute() {
@@ -89,6 +91,8 @@ function AppContent() {
             <Route path="add-property" element={<AddProperty />} />
             <Route path="properties" element={<AdminProperties />} />
             <Route path="users" element={<AdminUsers />} />
+            <Route path="sold" element={<SoldProperties />} />
+            <Route path="enquiries" element={<AdminEnquiries />} />
           </Route>
         </Route>
 

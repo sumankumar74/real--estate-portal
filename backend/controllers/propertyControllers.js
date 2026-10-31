@@ -237,16 +237,19 @@ const createProperty = async (req, res) => {
 };
 
 // Delete property
+
 const deleteProperty = async (req, res) => {
   try {
-    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
         success: false,
         message: "Invalid property ID.",
       });
     }
 
-    const property = await Property.findById(req.params.id);
+    const property = await Property.findById(id);
 
     if (!property) {
       return res.status(404).json({
@@ -255,7 +258,7 @@ const deleteProperty = async (req, res) => {
       });
     }
 
-    await property.deleteOne();
+    await Property.findByIdAndDelete(id);
 
     return res.status(200).json({
       success: true,
@@ -270,6 +273,7 @@ const deleteProperty = async (req, res) => {
     });
   }
 };
+
 
 // Get all properties for admin
 const getAllAdminProperties = async (req, res) => {
