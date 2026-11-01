@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { getPropertyById, formatPrice } from "../services/PropertyService";
 import Footer from "../components/Footer";
-import API_URL from "../services/api";
+
 
 export default function PropertyDetails() {
   const { id } = useParams();
