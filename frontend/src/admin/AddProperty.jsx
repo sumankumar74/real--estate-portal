@@ -2,9 +2,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import API_URL from "../service/api";
-
-const BASE_API = `${API_URL}/api`;
 
 const initialForm = {
   title: "",
@@ -92,7 +89,7 @@ export default function AddProperty() {
     try {
       setLoading(true);
 
-      const response = await fetch(`${BASE_API}/properties/admin/all`, {
+      const response = await fetch("https://estatehub-backend-mmms.onrender.com/api/properties/admin/all", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -2,9 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../src/css/Login.css";
-import API_URL from "../src/service/api";
 
-const BASE_API = `${API_URL}/api`;
 
 export default function Login() {
   const navigate = useNavigate();
@@ -22,8 +20,7 @@ export default function Login() {
 
     try {
       setLoading(true);
-      const BASE_API = `${API_URL}/api`;
-      const response = await fetch(`${BASE_API}/auth/login`, {
+      const response = await fetch("https://estatehub-backend-mmms.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
