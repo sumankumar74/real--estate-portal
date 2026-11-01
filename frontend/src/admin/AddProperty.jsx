@@ -2,7 +2,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import API_URL from "../src/service/api";
+import API_URL from "../service/api";
+
+const BASE_API = `${API_URL}/api`;
+
 const initialForm = {
   title: "",
   description: "",
@@ -89,7 +92,7 @@ export default function AddProperty() {
     try {
       setLoading(true);
 
-      const response = await fetch(`${API_URL}/api/properties/admin/all`, {
+      const response = await fetch(`${BASE_API}/properties/admin/all`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

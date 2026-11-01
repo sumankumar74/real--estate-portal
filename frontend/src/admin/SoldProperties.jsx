@@ -2,9 +2,8 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { RefreshCw, BadgeCheck, MapPin, RotateCcw } from "lucide-react";
-import API_URL from "../src/service/api";
 
-const API_URL = `${API_URL}/api/properties`;
+const API_URL = "https://estatehub-backend-mmms.onrender.com/api/properties";
 
 export default function SoldProperties() {
   const [properties, setProperties] = useState([]);

@@ -11,8 +11,7 @@ import {
 } from "lucide-react";
 import { getPropertyById, formatPrice } from "../services/PropertyService";
 import Footer from "../components/Footer";
-import API_URL from "../src/service/api";
-;
+import API_URL from "../services/api";
 
 export default function PropertyDetails() {
   const { id } = useParams();
@@ -114,7 +113,7 @@ export default function PropertyDetails() {
     try {
       setSubmitting(true);
 
-      const response = await fetch(``${API_URL}/api/enquiries``, {
+      const response = await fetch("https://estatehub-backend-mmms.onrender.com/api/enquiries", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

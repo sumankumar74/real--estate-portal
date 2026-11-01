@@ -1,5 +1,5 @@
-import API_URL from "../src/service/api";
-const API_URL = `${API_URL}/api/properties`;
+
+const API_URL = "https://estatehub-backend-mmms.onrender.com/api/properties";
 
 export function normalizeProperty(property) {
   return {

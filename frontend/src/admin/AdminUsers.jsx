@@ -1,7 +1,6 @@
 
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import API_URL from "../src/service/api";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState([]);
@@ -12,7 +11,7 @@ export default function AdminUsers() {
       localStorage.getItem("estatehubToken") ||
       sessionStorage.getItem("estatehubToken");
 
-    fetch(`${API_URL}/api/auth/users`, {
+    fetch("https://estatehub-backend-mmms.onrender.com/api/auth/users", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(async (response) => {

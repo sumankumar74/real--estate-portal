@@ -1,4 +1,4 @@
-import { MessageCircle, ExternalLink } from "lucide-react";
+
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -11,10 +11,8 @@ import {
   User,
   RefreshCw,
 } from "lucide-react";
-import API_URL from "../src/service/api";
 
-
-const API = `${API_URL}/api/enquiries`;
+const API = "https://estatehub-backend-mmms.onrender.com/api/enquiries";
 
 export default function AdminEnquiries() {
   const [enquiries, setEnquiries] = useState([]);
@@ -70,7 +68,9 @@ export default function AdminEnquiries() {
       }
 
       setEnquiries((previous) =>
-        previous.map((item) => (item._id === id ? data.enquiry : item)),
+        previous.map((item) =>
+          item._id === id ? data.enquiry : item
+        )
       );
 
       toast.success("Enquiry status updated.");
@@ -81,7 +81,8 @@ export default function AdminEnquiries() {
 
   const filteredEnquiries = useMemo(() => {
     return enquiries.filter((item) => {
-      const matchesFilter = filter === "All" || item.status === filter;
+      const matchesFilter =
+        filter === "All" || item.status === filter;
 
       const searchText = search.toLowerCase();
 
@@ -93,7 +94,9 @@ export default function AdminEnquiries() {
         item.property?.location,
       ]
         .filter(Boolean)
-        .some((value) => value.toLowerCase().includes(searchText));
+        .some((value) =>
+          value.toLowerCase().includes(searchText)
+        );
 
       return matchesFilter && matchesSearch;
     });
@@ -110,42 +113,6 @@ export default function AdminEnquiries() {
     New: "bg-blue-100 text-blue-700",
     Contacted: "bg-amber-100 text-amber-700",
     Closed: "bg-green-100 text-green-700",
-  };
-
-  const replyOnWhatsApp = (item) => {
-    if (!item.phone) {
-      toast.error("Customer phone number is not available.");
-      return;
-    }
-
-    const phone = item.phone.replace(/\D/g, "");
-
-    if (phone.length < 10) {
-      toast.error("Please check the customer's phone number.");
-      return;
-    }
-
-    const message = `Hello ${item.name},
-
-Thank you for your interest in our property: ${item.property?.title || "Property"}.
-
-We have received your enquiry and would be happy to assist you.
-
-Your message:
-${item.message}
-
-Please let us know a convenient time to discuss further.
-
-Regards,
-EstateHub Team`;
-
-    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-
-    if (item.status === "New") {
-      updateStatus(item._id, "Contacted");
-    }
   };
 
   return (
@@ -171,17 +138,9 @@ EstateHub Team`;
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {[
-          {
-            label: "Total Enquiries",
-            value: counts.total,
-            color: "text-gray-900",
-          },
+          { label: "Total Enquiries", value: counts.total, color: "text-gray-900" },
           { label: "New", value: counts.new, color: "text-blue-600" },
-          {
-            label: "Contacted",
-            value: counts.contacted,
-            color: "text-amber-600",
-          },
+          { label: "Contacted", value: counts.contacted, color: "text-amber-600" },
           { label: "Closed", value: counts.closed, color: "text-green-600" },
         ].map((item) => (
           <div
@@ -230,7 +189,9 @@ EstateHub Team`;
       ) : filteredEnquiries.length === 0 ? (
         <div className="rounded-2xl border border-gray-100 bg-white p-12 text-center">
           <MessageSquare className="mx-auto mb-3 text-gray-300" size={40} />
-          <h3 className="font-semibold text-gray-800">No enquiries found</h3>
+          <h3 className="font-semibold text-gray-800">
+            No enquiries found
+          </h3>
           <p className="mt-1 text-sm text-gray-500">
             Customer enquiries will appear here.
           </p>
@@ -265,7 +226,9 @@ EstateHub Team`;
 
                 <select
                   value={item.status}
-                  onChange={(e) => updateStatus(item._id, e.target.value)}
+                  onChange={(e) =>
+                    updateStatus(item._id, e.target.value)
+                  }
                   className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-emerald-500"
                 >
                   <option value="New">New</option>
@@ -313,16 +276,6 @@ EstateHub Team`;
                   Property location: {item.property.location}
                 </p>
               )}
-              <div className="mt-4 flex flex-wrap gap-3 border-t border-gray-100 pt-4">
-                <button
-                  onClick={() => replyOnWhatsApp(item)}
-                  className="flex items-center gap-2 rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-green-700"
-                >
-                  <MessageCircle size={17} />
-                  Reply on WhatsApp
-                  <ExternalLink size={14} />
-                </button>
-              </div>
             </div>
           ))}
         </div>

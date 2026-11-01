@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -8,8 +9,8 @@ import {
   Users,
   RefreshCw,
 } from "lucide-react";
-import API_URL from "../src/service/api";
-const API_URL = `${API_URL}/api/`;
+
+const API_URL = "https://estatehub-backend-mmms.onrender.com/api";
 
 export default function AdminDashboard() {
   const [properties, setProperties] = useState([]);

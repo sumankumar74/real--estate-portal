@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../src/css/Register.css";
 import API_URL from "../src/service/api";
+
+const BASE_API = `${API_URL}/api`;
+
 export default function Register() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -34,8 +37,8 @@ export default function Register() {
 
     try {
       setLoading(true);
-
-      const response = await fetch(`${API_URL}/api/auth/register`, {
+      const BASE_API = `${API_URL}/api`;
+      const response = await fetch(`${BASE_API}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
